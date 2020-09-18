@@ -4,4 +4,12 @@
   display: grid;
   justify-content: center;
   align-items: center;
+  font-size: 50px;
+  border: 1px solid black;
+}
+
+#gameboard {
+  border: 1px solid black;
+  width: 300px;
+  margin: 0 auto;
 }

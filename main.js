@@ -1,7 +1,7 @@
 
 // gameBoard
 const gameBoard = (() => {
-  const board = [['x','o','o'], ['x','o','x'], ['o','x','o']];
+  const board = [[,,], [,,], [,,]];
   return {board};
 })()
 
@@ -20,6 +20,7 @@ const displayController = (()=>{
 
 const board = document.querySelector('#gameboard')
 window.addEventListener('load', render)
+// board.addEventListener('click', render)
 
 function render() {
   while (board.firstChild) {
@@ -31,7 +32,7 @@ function render() {
     for (let j = 0; j < 3; j++) {
       let element = document.createElement('div');
       element.classList.add('box')
-      element.innerHTML = gameBoard.board[i][j];
+      element.innerHTML = gameBoard.board[i][j] || '';
       row.appendChild(element);
     }
     board.appendChild(row);
