@@ -1,3 +1,10 @@
+const playerFactory = (name, marker) => {
+  return {name, marker};
+}
+
+const player1 = playerFactory('Player 1', 'X');
+const player2 = playerFactory('Player 2', 'O');
+
 // gameBoard
 const gameBoard = (() => {
   const board = [[,,], [,,], [,,]];
@@ -6,17 +13,10 @@ const gameBoard = (() => {
 
 const board = document.querySelector('#gameboard')
 
-// Players
-const playerFactory = (name, marker) => {
-  return {name, marker};
-}
-
-const player1 = playerFactory('Player 1', 'X');
-const player2 = playerFactory('Player 2', 'O');
-
 // displayController
 const displayController = (()=>{
-  let marker = 'X';
+  let currentPlayer = player1;
+  let isWinningCase = false;
   
   const render = () => {
     while (board.firstChild) {
@@ -38,11 +38,11 @@ const displayController = (()=>{
     boxes.forEach(box => box.addEventListener('click', updateGameBoard));
   }
 
-  const switchMarker = () => {
-    if (marker === 'X') {
-      marker = 'O';
+  const switchTurns = () => {
+    if (currentPlayer.name === player1.name) {
+      currentPlayer = player2;
     } else {
-      marker = 'X';
+      currentPlayer = player1;
     }
   }
 
@@ -50,9 +50,32 @@ const displayController = (()=>{
     let row = e.srcElement.id[3];
     let column = e.srcElement.id[10];
     if (!gameBoard.board[row][column]) {
-      gameBoard.board[row][column] = marker;
+      gameBoard.board[row][column] = currentPlayer.marker;
+      checkWinningCases();
+      if(isWinningCase){
+        console.log('stop');
+      };
       render();
-      switchMarker();
+      switchTurns();
+    }
+  }
+
+  const checkWinningCases = () => {
+    let board = gameBoard.board;
+    
+    for (let i = 0; i < 3; i++) {
+      let case1 = (board[0][0] === 'X' || board[0][0] === 'O') && 
+                  (board[0][0] === board[1][1] && board[1][1] === board[2][2]);
+      let case2 = (board[2][0] === 'X' || board[2][0] === 'O') && 
+                  (board[2][0] === board[1][1] && board[1][1] === board[0][2]);
+      let case3 = (board[i][0] === 'X' || board[i][0] === 'O') && 
+                  (board[i][0] === board[i][1] && board[i][1] === board[i][2]);
+      let case4 = (board[0][i] === 'X' || board[0][i] === 'O') && 
+                  (board[0][i] === board[1][i] && board[1][i] === board[2][i]);
+
+      if (case1 || case2 ||case3 || case4) {
+        isWinningCase = true;
+      };
     }
   }
 
