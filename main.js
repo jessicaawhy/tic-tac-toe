@@ -2,12 +2,12 @@ const playerFactory = (name, marker) => {
   return {name, marker};
 }
 
-const player1 = playerFactory('Player 1', 'X');
-const player2 = playerFactory('Player 2', 'O');
+let player1 = playerFactory('Player 1', 'X');
+let player2 = playerFactory('Player 2', 'O');
 
 // gameBoard
 const gameBoard = (() => {
-  const board = [[,,], [,,], [,,]];
+  const board = [['','',''], ['','',''], ['','','']];
   return {board};
 })()
 
@@ -17,6 +17,7 @@ const board = document.querySelector('#gameboard')
 const displayController = (()=>{
   let currentPlayer = player1;
   let isWinningCase = false;
+  let count = 0;
   
   const render = () => {
     while (board.firstChild) {
@@ -36,6 +37,9 @@ const displayController = (()=>{
     }
     const boxes = document.querySelectorAll('.box');
     boxes.forEach(box => box.addEventListener('click', updateGameBoard));
+    const resetButton = document.querySelector('#reset')
+    resetButton.addEventListener('click', resetGame);
+
   }
 
   const switchTurns = () => {
@@ -51,18 +55,24 @@ const displayController = (()=>{
     let column = e.srcElement.id[10];
     if (!gameBoard.board[row][column]) {
       gameBoard.board[row][column] = currentPlayer.marker;
+      ++count;
+      render();
       checkWinningCases();
       if(isWinningCase){
-        console.log('stop');
-      };
-      render();
-      switchTurns();
+        console.log(`${currentPlayer.name} wins!`);
+        // restart game
+      } else if(count === 9) {
+        console.log('It\'s a tie');
+        // restart game
+      } else {
+        switchTurns();
+      }
     }
   }
 
   const checkWinningCases = () => {
     let board = gameBoard.board;
-    
+
     for (let i = 0; i < 3; i++) {
       let case1 = (board[0][0] === 'X' || board[0][0] === 'O') && 
                   (board[0][0] === board[1][1] && board[1][1] === board[2][2]);
@@ -73,11 +83,23 @@ const displayController = (()=>{
       let case4 = (board[0][i] === 'X' || board[0][i] === 'O') && 
                   (board[0][i] === board[1][i] && board[1][i] === board[2][i]);
 
-      if (case1 || case2 ||case3 || case4) {
+      if (case1 || case2 || case3 || case4) {
         isWinningCase = true;
       };
     }
   }
 
+  const resetGame = () => {
+    gameBoard.board.forEach(row => {
+      for (let i = 0; i < 3; i++) {
+        row[i] = '';
+      }
+    });
+    isWinningCase = false;
+    currentPlayer = player1;
+    count = 0;
+    render();
+  }
+  
   render()
 })()
