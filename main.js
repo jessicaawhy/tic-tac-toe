@@ -11,7 +11,7 @@ const gameBoard = (() => {
   return {board};
 })()
 
-const board = document.querySelector('#gameboard')
+const board = document.querySelector('#gameboard');
 
 // displayController
 const displayController = (()=>{
@@ -48,7 +48,7 @@ const displayController = (()=>{
     updateNames();
     const boxes = document.querySelectorAll('.box');
     boxes.forEach(box => box.addEventListener('click', updateGameBoard));
-    const resetButton = document.querySelector('#reset')
+    const resetButton = document.querySelector('#reset');
     resetButton.addEventListener('click', resetGame);
   }
 
@@ -63,7 +63,7 @@ const displayController = (()=>{
   const updateGameBoard = (e) => {
     let row = e.srcElement.id[3];
     let column = e.srcElement.id[10];
-    if (!gameBoard.board[row][column]) {
+    if (!gameBoard.board[row][column] && !isWinningCase) {
       gameBoard.board[row][column] = currentPlayer.marker;
       ++count;
       render();
@@ -82,7 +82,6 @@ const displayController = (()=>{
 
   const checkWinningCases = () => {
     let board = gameBoard.board;
-
     for (let i = 0; i < 3; i++) {
       let case1 = (board[0][0] === 'X' || board[0][0] === 'O') && 
                   (board[0][0] === board[1][1] && board[1][1] === board[2][2]);
@@ -115,13 +114,13 @@ const displayController = (()=>{
     playerX.name = document.getElementById('p1name').value || `${playerX.name}`;
     playerO.name = document.getElementById('p2name').value || `${playerO.name}`;
     
-    const playerXlabel = document.querySelector('#playerX')
-    playerXlabel.innerHTML = `${playerX.name} ${playerX.marker}`
-    const playerOlabel = document.querySelector('#playerO')
-    playerOlabel.innerHTML = `${playerO.name} ${playerO.marker}`
+    const playerXlabel = document.querySelector('#playerX');
+    playerXlabel.innerHTML = `${playerX.name} ${playerX.marker}`;
+    const playerOlabel = document.querySelector('#playerO');
+    playerOlabel.innerHTML = `${playerO.name} ${playerO.marker}`;
   }
   
-  render()
+  render();
 
-  return {updateNames, toggleSections}
+  return {updateNames, toggleSections};
 })()
