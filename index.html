@@ -27,7 +27,8 @@
       <input id="p1name" type="text" placeholder="Player X">
       <label for="p2name">Player O Name</label>
       <input id="p2name" type="text" placeholder="Player O">
-      <button onclick="displayController.updateNames();" id="submit" type="submit">Submit</button>
+      <button onclick="displayController.toggleSections();" id="cancel">Cancel</button>
+      <button onclick="displayController.updateNames(); displayController.toggleSections()" id="submit" type="submit">Save</button>
     </form>
   </div>
   

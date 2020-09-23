@@ -19,6 +19,16 @@ const displayController = (()=>{
   let isWinningCase = false;
   let count = 0;
   
+  const toggleSections = () => {
+    let main = document.querySelector('.main');
+    main.classList.toggle('hide');
+    let form = document.querySelector('.form');
+    form.classList.toggle('hide');
+  }
+  
+  const settingButton = document.querySelector('#settings');
+  settingButton.addEventListener('click', toggleSections);
+
   const render = () => {
     while (board.firstChild) {
       board.removeChild(board.firstChild);
@@ -107,5 +117,5 @@ const displayController = (()=>{
   
   render()
 
-  return {updateNames}
+  return {updateNames, toggleSections}
 })()
