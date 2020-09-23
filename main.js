@@ -18,12 +18,16 @@ const displayController = (()=>{
   let currentPlayer = playerX;
   let isWinningCase = false;
   let count = 0;
+  let endMessage = document.querySelector('#end-message');
   
   const toggleSections = () => {
     let main = document.querySelector('.main');
-    main.classList.toggle('hide');
     let form = document.querySelector('.form');
-    form.classList.toggle('hide');
+    let  = document.querySelector('.form');
+    // main.classList.toggle('hide');
+    // form.classList.toggle('hide');
+    [main, form, endMessage].forEach(
+      element => element.classList.toggle('hide'))
   }
   
   const settingButton = document.querySelector('#settings');
@@ -69,11 +73,9 @@ const displayController = (()=>{
       render();
       checkWinningCases();
       if(isWinningCase){
-        console.log(`${currentPlayer.name} wins!`);
-        // restart game
+        endMessage.innerHTML = `${currentPlayer.marker} wins!`;
       } else if(count === 9) {
-        console.log('It\'s a tie');
-        // restart game
+        endMessage.innerHTML = `It's a tie.`;
       } else {
         switchTurns();
       }
@@ -107,6 +109,7 @@ const displayController = (()=>{
     isWinningCase = false;
     currentPlayer = playerX;
     count = 0;
+    endMessage.innerHTML = '';
     render();
   }
 

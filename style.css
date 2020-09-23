@@ -56,3 +56,10 @@ button {
   border: none;
   text-align: left;
 }
+
+#end-message {
+  text-align: center;
+  padding: 30px 0 30px 0;
+  font-family: 'Amatic SC', cursive;
+  font-size: 40px;
+}
