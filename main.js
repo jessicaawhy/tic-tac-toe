@@ -2,8 +2,8 @@ const playerFactory = (name, marker) => {
   return {name, marker};
 }
 
-let playerX = playerFactory('Player X', 'X');
-let playerO = playerFactory('Player O', 'O');
+let playerX = playerFactory('Player', 'X');
+let playerO = playerFactory('Player', 'O');
 
 // gameBoard
 const gameBoard = (() => {
@@ -45,6 +45,7 @@ const displayController = (()=>{
       }
       board.appendChild(row);
     }
+    updateNames();
     const boxes = document.querySelectorAll('.box');
     boxes.forEach(box => box.addEventListener('click', updateGameBoard));
     const resetButton = document.querySelector('#reset')
@@ -52,7 +53,7 @@ const displayController = (()=>{
   }
 
   const switchTurns = () => {
-    if (currentPlayer.name === playerX.name) {
+    if (currentPlayer.marker === playerX.marker) {
       currentPlayer = playerO;
     } else {
       currentPlayer = playerX;
@@ -111,8 +112,13 @@ const displayController = (()=>{
   }
 
   const updateNames = () => {
-    playerX.name = document.getElementById('p1name').value;
-    playerO.name = document.getElementById('p2name').value;
+    playerX.name = document.getElementById('p1name').value || `${playerX.name}`;
+    playerO.name = document.getElementById('p2name').value || `${playerO.name}`;
+    
+    const playerXlabel = document.querySelector('#playerX')
+    playerXlabel.innerHTML = `${playerX.name} ${playerX.marker}`
+    const playerOlabel = document.querySelector('#playerO')
+    playerOlabel.innerHTML = `${playerO.name} ${playerO.marker}`
   }
   
   render()
