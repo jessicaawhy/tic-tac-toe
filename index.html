@@ -2,21 +2,35 @@
 <html>
 <head>
   <title>tic-tac-toe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&family=Short+Stack&display=swap" rel="stylesheet">
   <link href="./style.css" rel="stylesheet">
 </head>
 <body>
-  <div>
-    <form>
-      <label for="p1-name">Player 1 Name</label>
-      <input id="p1-name" placeholder="Player 1">
-      <label for="p2-name">Player 2 Name</label>
-      <input id="p2-name" placeholder="Player 2">
-      <button onclick="saveName();" id="submit" type="submit">Submit</button>
-    </form>
+  <h1>Tic-Tac-Toe</h1>
 
+  <div class="main">
+    <div id="displayName">
+      <p>Player X</p>
+      <p>Player O</p>
+    </div>
+    <div id="gameboard"></div>
+    <div id="button-container">
+      <button id='reset'>reset</button>
+      <br>
+      <button id='settings'>settings</button>
+    </div>
   </div>
-  <div id="gameboard"></div>
-  <button id='reset'>reset</button>
+  
+  <div class="form hide">
+    <form onsubmit="return false">
+      <label for="p1name">Player X Name</label>
+      <input id="p1name" type="text" placeholder="Player X">
+      <label for="p2name">Player O Name</label>
+      <input id="p2name" type="text" placeholder="Player O">
+      <button onclick="displayController.updateNames();" id="submit" type="submit">Submit</button>
+    </form>
+  </div>
+  
   <script src='./main.js'></script>
 </body>
 </html>

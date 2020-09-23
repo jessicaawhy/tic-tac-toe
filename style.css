@@ -1,6 +1,24 @@
+* {
+  margin: 0;
+  font-family: 'Short Stack', cursive;
+}
+
+h1 {
+  text-align: center;
+  padding: 30px 0 30px 0;
+  font-family: 'Amatic SC', cursive;
+  font-size: 50px;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .box {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   display: grid;
   justify-content: center;
   align-items: center;
@@ -10,6 +28,31 @@
 
 #gameboard {
   border: 1px solid black;
-  width: 300px;
-  margin: 0 auto;
+  width: 450px;
+  margin: 0;
+}
+
+#displayName {
+  margin-right: 20px;
+  font-size: 20px;
+  margin: 5px;
+}
+
+#button-container {
+  margin-left: 20px;
+}
+
+.hide {
+  display: none;
+}
+
+button {
+  padding: 0;
+  width: 120px;
+  font-size: 20px;
+  outline:none;
+  margin: 5px;
+  background-color: white;
+  border: none;
+  text-align: left;
 }

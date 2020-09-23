@@ -2,8 +2,8 @@ const playerFactory = (name, marker) => {
   return {name, marker};
 }
 
-let player1 = playerFactory('Player 1', 'X');
-let player2 = playerFactory('Player 2', 'O');
+let playerX = playerFactory('Player X', 'X');
+let playerO = playerFactory('Player O', 'O');
 
 // gameBoard
 const gameBoard = (() => {
@@ -15,7 +15,7 @@ const board = document.querySelector('#gameboard')
 
 // displayController
 const displayController = (()=>{
-  let currentPlayer = player1;
+  let currentPlayer = playerX;
   let isWinningCase = false;
   let count = 0;
   
@@ -39,14 +39,13 @@ const displayController = (()=>{
     boxes.forEach(box => box.addEventListener('click', updateGameBoard));
     const resetButton = document.querySelector('#reset')
     resetButton.addEventListener('click', resetGame);
-
   }
 
   const switchTurns = () => {
-    if (currentPlayer.name === player1.name) {
-      currentPlayer = player2;
+    if (currentPlayer.name === playerX.name) {
+      currentPlayer = playerO;
     } else {
-      currentPlayer = player1;
+      currentPlayer = playerX;
     }
   }
 
@@ -96,10 +95,17 @@ const displayController = (()=>{
       }
     });
     isWinningCase = false;
-    currentPlayer = player1;
+    currentPlayer = playerX;
     count = 0;
     render();
   }
+
+  const updateNames = () => {
+    playerX.name = document.getElementById('p1name').value;
+    playerO.name = document.getElementById('p2name').value;
+  }
   
   render()
+
+  return {updateNames}
 })()
