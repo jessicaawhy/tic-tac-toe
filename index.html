@@ -3,37 +3,8 @@
 <head>
   <title>tic-tac-toe</title>
   <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&family=Short+Stack&display=swap" rel="stylesheet">
-  <link href="./style.css" rel="stylesheet">
 </head>
 <body>
-  <h1>Tic-Tac-Toe</h1>
-
-  <div class="main">
-    <div id="displayName">
-      <p id="playerX"></p>
-      <p id="playerO"></p>
-    </div>
-    <div id="gameboard"></div>
-    <div id="button-container">
-      <button id='reset'>reset</button>
-      <br>
-      <button id='settings'>settings</button>
-    </div>
-  </div>
-  
-  <div class="form hide">
-    <form onsubmit="return false">
-      <label for="p1name">Player X Name</label>
-      <input id="p1name" type="text" placeholder="Player X">
-      <label for="p2name">Player O Name</label>
-      <input id="p2name" type="text" placeholder="Player O">
-      <button onclick="displayController.toggleSections();" id="cancel">Cancel</button>
-      <button onclick="displayController.updateNames(); displayController.toggleSections()" id="submit" type="submit">Save</button>
-    </form>
-  </div>
-
-  <p id="end-message"></p>
-  
-  <script src='./main.js'></script>
+  <script src="./dist/main.js"></script>
 </body>
 </html>
