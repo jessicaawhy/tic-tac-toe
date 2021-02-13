@@ -1,1 +1,43 @@
+/* Board */
 
+#gameboard {
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  height: 300px;
+  width: 300px;
+}
+
+.square {
+  text-align: center;
+  font-size: 50px;
+  /* the following need to be 1/3 of the total 
+     in order to vertically center text */
+  height: 100px;
+  line-height: 100px;
+}
+
+.first-column {
+  border-right: 1px solid black;
+}
+
+.second-column {
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.third-column {
+  border-left: 1px solid black;
+}
+
+.first-row {
+  border-bottom: 1px solid black;
+}
+
+.second-row {
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+}
+
+.third-row {
+  border-top: 1px solid black;
+}
