@@ -110,7 +110,7 @@ test('should have returned undefined when there are no winners', () => {
   expect(gameMock).toHaveReturnedWith(undefined);
 })
 
-describe('random games', () => {
+describe('checks winner for random games', () => {
   test('random 1: should return x', () => {
     const gameArray = ['x', 'o', 'x', 'o', 'x', 'o', 'x', null, null];
     expect(checkGameWinner(gameArray)).toBe('x');
