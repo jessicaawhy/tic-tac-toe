@@ -29,5 +29,11 @@ function checkNoMovesLeft(arr) {
   return true;
 }
 
+function returnEmptyIndices(arr) {
+  return arr.reduce((acc, curr, i) => {
+    if (!curr) acc.push(i);
+    return acc;
+  }, [])
+}
 
-export { checkGameWinner, checkNoMovesLeft };
+export { checkGameWinner, checkNoMovesLeft, returnEmptyIndices };
