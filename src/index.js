@@ -24,8 +24,10 @@ const displayController = (() => {
     if (
       !winner &&
       !noSquaresLeft &&
-      players === 1
+      players === 1 &&
+      !xIsNext
     ) {
+      removeListeners();
       setTimeout(computersTurn, 1000);
     }
   }
@@ -35,10 +37,9 @@ const displayController = (() => {
     const randomIndex = Math.floor(Math.random() * freeMoves.length);
     const chosenMove = freeMoves[randomIndex];
 
-    currentGame[chosenMove] = xIsNext ? 'X' : 'O';
+    currentGame[chosenMove] = 'O';
 
     updateState();
-    removeListeners();
     removeBoard();
     createBoard(currentGame);
     addListeners();
@@ -75,6 +76,10 @@ const displayController = (() => {
     noSquaresLeft = checkNoMovesLeft(currentGame);
   }
 
+  const updateMode = (e) => {
+    players = parseInt(e.target.dataset.mode);
+  }
+
   const addListeners = () => {
     const squares = document.querySelectorAll('.square');
     squares.forEach(square => square.addEventListener('click', handleClick));
@@ -85,12 +90,9 @@ const displayController = (() => {
     squares.forEach(square => square.removeEventListener('click', handleClick));
   }
 
-  const updateMode = (e) => {
-    players = parseInt(e.target.dataset.mode);
-  }
-
-  modeButtons.forEach(button => button.addEventListener('click', updateMode));
+  modeButtons.forEach(
+    button => button.addEventListener('click', updateMode)
+  );
   resetButton.addEventListener('click', reset);
-
   render();
 })()
