@@ -1,6 +1,7 @@
 import './styles/style.css';
 import { checkGameWinner, checkNoMovesLeft, returnEmptyIndices } from '../src/logic';
 import { removeBoard, createBoard, renderMessage } from './display';
+import minimax from './minimax';
 
 const displayController = (() => {
   const messageContainer = document.getElementById('message');
@@ -35,7 +36,7 @@ const displayController = (() => {
   const computersTurn = () => {
     const freeMoves = returnEmptyIndices(currentGame);
     const randomIndex = Math.floor(Math.random() * freeMoves.length);
-    const chosenMove = freeMoves[randomIndex];
+    const chosenMove = minimax(currentGame, 'computer').index;
 
     currentGame[chosenMove] = 'O';
 
