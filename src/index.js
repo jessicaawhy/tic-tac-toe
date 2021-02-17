@@ -7,13 +7,14 @@ const displayController = (() => {
   const messageContainer = document.getElementById('message');
   const resetButton = document.getElementById('reset');
   const modeButton = document.getElementById('mode');
-  const settings = document.querySelector('.settings')
+  const settings = document.querySelector('.settings');
 
   let xIsNext = true;
   let currentGame = Array.from({length: 9}, () => null);
   let winner = undefined;
   let noSquaresLeft = false;
   let players = 1;
+  let computersMove
 
   const render = () => {
     removeListeners();
@@ -30,7 +31,7 @@ const displayController = (() => {
       !xIsNext
     ) {
       removeListeners();
-      setTimeout(computersTurn, 1000);
+      computersMove = setTimeout(computersTurn, 1000);
     }
   }
 
@@ -68,6 +69,7 @@ const displayController = (() => {
     winner = undefined;
     noSquaresLeft = false;
     settings.style.display = 'block';
+    clearTimeout(computersMove);
     render();
   }
 
