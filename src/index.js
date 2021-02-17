@@ -1,18 +1,19 @@
 import './styles/style.css';
-import { checkGameWinner, checkNoMovesLeft, returnEmptyIndices } from '../src/logic';
+import { checkGameWinner, checkNoMovesLeft } from '../src/logic';
 import { removeBoard, createBoard, renderMessage } from './display';
 import minimax from './minimax';
 
 const displayController = (() => {
   const messageContainer = document.getElementById('message');
   const resetButton = document.getElementById('reset');
-  const modeButtons = document.querySelectorAll('.mode')
+  const modeButton = document.getElementById('mode');
+  const settings = document.querySelector('.settings')
 
   let xIsNext = true;
   let currentGame = Array.from({length: 9}, () => null);
   let winner = undefined;
   let noSquaresLeft = false;
-  let players = 2;
+  let players = 1;
 
   const render = () => {
     removeListeners();
@@ -34,8 +35,6 @@ const displayController = (() => {
   }
 
   const computersTurn = () => {
-    const freeMoves = returnEmptyIndices(currentGame);
-    const randomIndex = Math.floor(Math.random() * freeMoves.length);
     const chosenMove = minimax(currentGame, 'computer').index;
 
     currentGame[chosenMove] = 'O';
@@ -54,6 +53,7 @@ const displayController = (() => {
       !winner &&
       !noSquaresLeft
     ) {
+      settings.style.display = 'none';
       const index = e.target.dataset.index;
       currentGame[index] = xIsNext ? 'X' : 'O';
 
@@ -67,7 +67,7 @@ const displayController = (() => {
     currentGame = Array.from({length: 9}, () => null);
     winner = undefined;
     noSquaresLeft = false;
-
+    settings.style.display = 'block';
     render();
   }
 
@@ -77,8 +77,14 @@ const displayController = (() => {
     noSquaresLeft = checkNoMovesLeft(currentGame);
   }
 
-  const updateMode = (e) => {
-    players = parseInt(e.target.dataset.mode);
+  const updateMode = () => {
+    modeButton.toggleAttribute('checked');
+
+    if (modeButton.checked) {
+      players = 2;
+    } else {
+      players = 1;
+    }
   }
 
   const addListeners = () => {
@@ -91,9 +97,7 @@ const displayController = (() => {
     squares.forEach(square => square.removeEventListener('click', handleClick));
   }
 
-  modeButtons.forEach(
-    button => button.addEventListener('click', updateMode)
-  );
+  modeButton.addEventListener('change', updateMode);
   resetButton.addEventListener('click', reset);
   render();
 })()
